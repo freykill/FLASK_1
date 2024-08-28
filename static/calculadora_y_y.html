@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Conexión Y-Y</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+        input {
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Calculadora Conexión Y-Y</h1>
+    
+    <label for="van">VAN (ej: -391.91i):</label>
+    <input type="text" id="van"><br>
+
+    <label for="vbn">VBN (ej: 339.4+195.96i):</label>
+    <input type="text" id="vbn"><br>
+
+    <label for="vcn">VCN (ej: -339.4+195.96i):</label>
+    <input type="text" id="vcn"><br>
+
+    <label for="z">Z (ej: 61.080-753.98i):</label>
+    <input type="text" id="z"><br>
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div class="result" id="result"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.1/lib/browser/math.min.js"></script>
+    <script>
+        function calcular() {
+            const VAN = math.complex(document.getElementById('van').value);
+            const VBN = math.complex(document.getElementById('vbn').value);
+            const VCN = math.complex(document.getElementById('vcn').value);
+            const Z = math.complex(document.getElementById('z').value);
+
+            const MT = math.matrix([[Z, 0, 0], [0, Z, 0], [0, 0, Z]]);
+            const CT = math.matrix([VAN, VBN, VCN]);
+
+            const IL = math.multiply(math.inv(MT), CT)._data;
+
+            const IA_modulo = math.sqrt(2) * math.abs(IL[0]);
+            const IA_angulo = math.arg(IL[0]) * (180 / Math.PI);
+
+            const IB_modulo = math.sqrt(2) * math.abs(IL[1]);
+            const IB_angulo = math.arg(IL[1]) * (180 / Math.PI);
+
+            const IC_modulo = math.sqrt(2) * math.abs(IL[2]);
+            const IC_angulo = math.arg(IL[2]) * (180 / Math.PI);
+
+            document.getElementById('result').innerText = `
+            Corrientes en fase (en forma polar):
+            IA: Magnitud = ${IA_modulo.toFixed(2)}, Ángulo = ${IA_angulo.toFixed(2)} grados
+            IB: Magnitud = ${IB_modulo.toFixed(2)}, Ángulo = ${IB_angulo.toFixed(2)} grados
+            IC: Magnitud = ${IC_modulo.toFixed(2)}, Ángulo = ${IC_angulo.toFixed(2)} grados
+            `;
+        }
+    </script>
+
+</body>
+</html>

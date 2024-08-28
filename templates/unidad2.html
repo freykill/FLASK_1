@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad 1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .informe-cuerpo ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+    </style>
+</head>
+<body class="unidad">
+    <nav>
+        <a href="{{ url_for('index') }}">Inicio</a>
+        <a href="{{ url_for('unidad1') }}">Unidad 1</a>
+        <a href="{{ url_for('unidad2') }}">Unidad 2</a>
+        <a href="{{ url_for('unidad3') }}">Unidad 3</a>
+    </nav>
+     <!-- Contenido principal -->
+     <main>
+        <h1> Circuitos de Primer y Segundo Orden</h1>
+
+        <h2> Introducción a los Circuitos de Primer Orden</h2>
+        <p>Los circuitos de primer orden están modelados por ecuaciones diferenciales de primer orden. Estos circuitos constan de los siguientes componentes:</p>
+        <ul>
+            <li>Un solo elemento que almacena energía (bobina o capacitor). Si hay varios del mismo tipo, se reducen a un solo equivalente.</li>
+            <li>Fuentes de poder que pueden conectarse o desconectarse en un instante específico de tiempo.</li>
+            <li>Elementos disipadores de energía.</li>
+            <li>Interruptores que se activan (abren, cierran o conmutan) en momentos específicos.</li>
+        </ul>
+        <img src="{{ url_for('static', filename='img/ta.png') }}" alt="Imagen ta">
+        <h2> Circuitos RC (Resistor-Capacitor)</h2>
+        <h3> Descripción General</h3>
+        <p>En un circuito RC, cuando una fuente de corriente continua se desconecta, la energía almacenada en el capacitor se libera hacia el resistor. Consideramos una configuración en serie de un resistor y un capacitor inicialmente cargado.</p>
+
+        <h3> Ecuación Diferencial del Circuito RC</h3>
+        <p>Aplicando la Ley de Corriente de Kirchhoff (LCK):</p>
+        <p>\[ i_c + i_r = 0 \]</p>
+        <p>Donde:</p>
+        <p>\[ i_c = C \frac{dv}{dt} \quad \text{y} \quad i_r = \frac{v}{R} \]</p>
+        <p>Entonces, tenemos:</p>
+        <p>\[ C \frac{dv}{dt} + \frac{v}{R} = 0 \quad \Rightarrow \quad \frac{dv}{dt} + \frac{v}{RC} = 0 \]</p>
+
+        <h3> Solución de la Ecuación Diferencial</h3>
+        <p>\[ \frac{dv}{v} = -\frac{dt}{RC} \]</p>
+        <p>Integrando ambos lados:</p>
+        <p>\[ \ln{v} = -\frac{t}{RC} + \ln{A} \]</p>
+        <p>\[ v(t) = A e^{-\frac{t}{RC}} \]</p>
+        <p>La constante de tiempo \( \tau \) se define como:</p>
+        <p>\[ \tau = RC \]</p>
+
+        <h3> Respuesta General</h3>
+        <p>\[ v(t) = A e^{-\frac{t}{\tau}} + v(\infty) \]</p>
+        <p>Si \( v(\infty) = 0 \), la tensión se disipa completamente.</p>
+        <p>Si \( v(\infty) \neq 0 \), hay una tensión residual debido a una fuente secundaria.</p>
+
+        <!-- Insertar imagen similar a la unidad 1 -->
+        <img src="{{ url_for('static', filename='img/8.3.png') }}" alt="Imagen 8.3">
+        
+        <pre>
+            <code>
+                R1 = 6; 
+                R2 = 6; 
+                R3 = 6; 
+                C = 0.25;
+                V = 12; 
+                V0_minus = (V * R2) / (R1 + R2 + R3);% Calcular V(0^-)
+                V_infinito = (V * R2) / (R2 + R3);% Calcular V(infinito)
+                R_Thevenin = (R2 * R3) / (R2 + R3);% Calcular R_Thevenin
+                tau = R_Thevenin * C;% Calcular la constante de tiempo tau
+                V0 = V0_minus; % Voltaje inicial
+                A = V0 - V_infinito;% Calcular la constante A
+                t = 0:0.1:12;% Función de voltaje en el tiempo
+                Vc = A * exp(-t/tau) + V_infinito;
+                disp('Valores de la solución Vc(t):');
+                disp(Vc);
+                figure;
+                plot(t, Vc);
+                title('Voltaje a través del capacitor en función del tiempo');
+                xlabel('t (s)');
+                ylabel('Vc (V)');
+                V_specific = -2 * exp(-t/0.75) + 6;
+                disp('Valores de la función V(t) = -2e^{-t/0.75} + 6:');
+                disp(V_specific);
+                hold on;
+                plot(t, V_specific, '--');
+                legend('Vc(t)', 'V(t) = -2e^{-t/0.75} + 6');
+                hold off;
+                poly = [1 4 4 1 20];
+                r = roots(poly);% Encontrar las raíces del polinomio
+                disp('Las raíces del polinomio son:');
+                disp(r);
+                
+            </code>
+            </pre>
+            <img src="{{ url_for('static', filename='img/time.png') }}" alt="Imagen tiempo">
+        <h2> Circuitos RL (Resistor-Inductor)</h2>
+        <h3> Descripción General</h3>
+        <p>En un circuito RL en serie, la corriente a través del inductor no puede cambiar instantáneamente debido a las propiedades del inductor. Se analiza la corriente en el inductor cuando se desconecta la fuente.</p>
+
+        <h3> Ecuación Diferencial del Circuito RL</h3>
+        <p>Aplicando la Ley de Voltaje de Kirchhoff (LVK):</p>
+        <p>\[ V_L + v_R = 0 \]</p>
+        <p>Donde:</p>
+        <p>\[ V_L = L \frac{di}{dt} \quad \text{y} \quad v_R = iR \]</p>
+        <p>Entonces, tenemos:</p>
+        <p>\[ L \frac{di}{dt} + Ri = 0 \quad \Rightarrow \quad \frac{di}{dt} + \frac{R}{L} i = 0 \]</p>
+
+        <h3> Solución de la Ecuación Diferencial</h3>
+        <p>\[ \frac{di}{i} = -\frac{R}{L} dt \]</p>
+        <p>Integrando:</p>
+        <p>\[ \ln{i} = -\frac{Rt}{L} + \ln{A} \]</p>
+        <p>\[ i(t) = A e^{-\frac{Rt}{L}} \]</p>
+        <p>La constante de tiempo \( \tau \) se define como:</p>
+        <p>\[ \tau = \frac{L}{R} \]</p>
+
+        <h3> Respuesta General</h3>
+        <p>\[ i(t) = A e^{-\frac{t}{\tau}} + i(\infty) \]</p>
+        <p>Si \( i(\infty) = 0 \), la corriente se disipa completamente.</p>
+        <p>Si \( i(\infty) \neq 0 \), hay una corriente residual.</p>
+
+        <!-- Insertar imagen similar a la unidad 1 -->
+        <img src="{{ url_for('static', filename='img/s-rl-1.png') }}" alt="Imagen s-rl-1">
+
+<pre>
+    <code>
+        % Parámetros del circuito
+R1 = 4;  % Ohms
+R2 = 4;  % Ohms
+R3 = 4;  % Ohms
+L = 12;  % Henrios
+I0 = 10; % Amperios (corriente inicial)
+
+% Cálculo de la resistencia equivalente
+Req = 1 / (1/8 + 1/4);
+
+% Cálculo de la constante de tiempo
+tau = L / Req;
+
+% Función de la corriente
+i = @(t) 10 * exp(-t / tau) + 10;
+
+% Crear vector de tiempo
+t = linspace(0, 5*tau, 1000);
+
+% Calcular la corriente para cada punto de tiempo
+I = i(t);
+
+% Crear la gráfica
+figure;
+plot(t, I, 'b-', 'LineWidth', 2);
+grid on;
+title('Corriente en función del tiempo en el circuito RL');
+xlabel('Tiempo (s)');
+ylabel('Corriente (A)');
+
+% Añadir líneas para mostrar la constante de tiempo y la corriente en estado estable
+hold on;
+plot([tau, tau], [min(I), max(I)], 'r--', 'LineWidth', 1.5);
+plot([0, max(t)], [10, 10], 'g--', 'LineWidth', 1.5);
+
+% Añadir leyenda
+legend('i(t)', '\tau', 'i(\infty)', 'Location', 'best');
+
+% Añadir texto para mostrar valores
+text(tau, max(I), ['\tau = ' num2str(tau, '%.2f') ' s'], 'VerticalAlignment', 'top', 'HorizontalAlignment', 'left');
+text(max(t), 10, 'i(\infty) = 10 A', 'VerticalAlignment', 'bottom', 'HorizontalAlignment', 'right');
+
+% Mostrar la ecuación en la gráfica
+equation = sprintf('i(t) = 10e^{-t/%.2f} + 10', tau);
+text(0.6*max(t), 0.8*max(I), equation, 'FontSize', 12);
+
+    </code>
+</pre>
+<img src="{{ url_for('static', filename='img/timerl.png') }}" alt="Imagen time RL">
+        <h2> Conmutación Secuencial en Circuitos</h2>
+        <p>En circuitos con conmutación secuencial, varios interruptores se activan en diferentes momentos, afectando cómo cambian las tensiones y corrientes en el circuito. Las ecuaciones relevantes se derivan usando las leyes de Kirchhoff, considerando que la corriente en el inductor y la tensión en el capacitor no cambian instantáneamente. Las fórmulas específicas dependerán del circuito en cuestión (RC, RL, RLC) y de la configuración de los interruptores.</p>
+
+        <h2> Circuitos de Segundo Orden (RLC)</h2>
+        
+        <p>Los circuitos de segundo orden están caracterizados por una ecuación diferencial de segundo orden y contienen elementos R, L, y C. Estos circuitos modelan sistemas como la suspensión de un automóvil o el control de temperatura.</p>
+
+        <img src="{{ url_for('static', filename='img/s-orden.png') }}" alt="Imagen s-orden">
+        <p>Circuito RLC paralelo:</p>
+        <p>Aplicando LCK:</p>
+        <p>\[ \frac{v(t)}{R} + \frac{1}{L}\int_0^t v(x) dx + C\frac{dv(t)}{dt} = i_s(t) \]</p>
+        
+        <p>Circuito RLC serie:</p>
+        <p>Aplicando LVK:</p>
+        <p>\[ Ri + \frac{1}{C}\int_0^t i(x) dx + L\frac{di}{dt} = v_s(t) \]</p>
+
+        <!-- Insertar imagen similar a la unidad 1 -->
+        
+
+        <h3> Soluciones de Segundo Orden</h3>
+        <p>Dependiendo de los valores de los parámetros, se obtienen diferentes tipos de soluciones:</p>
+        <ul>
+            <li>Sobreamortiguado (\( \alpha > \omega_0 \)): Raíces reales y negativas.</li>
+            <li>\[ x_n = A e^{s_1 t} + B e^{s_2 t} \]</li>
+            <li>Subamortiguado (\( \alpha < \omega_0 \)): Raíces complejas conjugadas.</li>
+            <li>\[ x_n = e^{\alpha t} (A \cos(\omega_0 t) + B \sin(\omega_0 t)) \]</li>
+            <li>Críticamente amortiguado (\( \alpha = \omega_0 \)): Raíces repetidas.</li>
+            <li>\[ x_n = (A + Bt)e^{-\alpha t} \]</li>
+        </ul>
+        <img src="{{ url_for('static', filename='img/crt.png') }}" alt="Tab 2crt">
+
+        <p> <img src="{{ url_for('static', filename='img/8.11.png') }}" alt="Tab 8.11">
+        </p>
+        
+        <p>1. Como primer ejemplo se utiliza el circuito, cuya respuesta natural es sobre amortiguada</p>
+<pre>
+    <code>
+        syms Vc(t)
+R = 1000; 
+L = 0.001; 
+C = 6.25e-9;
+a = 1; 
+b = R / L; 
+c = 1 / (L * C);
+Dv = diff(Vc, t);
+D2v = diff(Vc, t, 2);
+eqn = D2v + b*Dv + c*Vc == 0;
+conds = [Vc(0) == 12, Dv(0) == 0];
+Vcs = dsolve(eqn, conds);
+disp('Solución simbólica de Vc(t):');
+disp(Vcs);
+t_vals = 0:0.000001:0.00005; % Ajuste del intervalo de tiempo para mejor visualización
+Vc_sol = matlabFunction(Vcs);
+R1 = Vc_sol(t_vals);
+disp('Resultados numéricos de Vc(t):');
+disp(table(t_vals', R1', 'VariableNames', {'Tiempo', 'Vc'}));
+% Graficar la solución
+figure;
+plot(t_vals, R1, 'LineWidth', 2);
+title('Solución de la Ecuación Diferencial del Circuito RLC en Serie');
+xlabel('Tiempo (s)');
+ylabel('Vc(t)');
+grid on;
+legend('Vc(t)');
+
+    </code>
+</pre>
+<img src="{{ url_for('static', filename='img/mob.png') }}" alt="Tab mob">
+
+<p>2. Como segundo ejemplo se utiliza el circuito, cuya respuesta natural es críticamente amortiguado</p>
+        <pre>
+            <code>
+                syms Vc(t)
+R = 4; 
+L = 0.5; 
+C = 1/8; 
+a = 1;
+b = R / L;
+c = 1 / (L * C); 
+Dv = diff(Vc, t);
+D2v = diff(Vc, t, 2);
+eqn = L*D2v + R*Dv + (1/C)*Vc == 0;
+conds = [Vc(0) == 1, Dv(0) == 8];
+Vcs = dsolve(eqn, conds);
+disp('Solución simbólica de Vc(t):');
+disp(Vcs);
+t_vals = 0:0.01:5; % Ajuste del intervalo de tiempo para mejor visualización
+Vc_sol = matlabFunction(Vcs);
+R1 = Vc_sol(t_vals);
+disp('Resultados numéricos de Vc(t):');
+disp(table(t_vals', R1', 'VariableNames', {'Tiempo', 'Vc'}));
+% Graficar la solución
+figure;
+plot(t_vals, R1, 'LineWidth', 2);
+title('Solución de la Ecuación Diferencial del Circuito RLC en Serie (Críticamente Amortiguado)');
+xlabel('Tiempo (s)');
+ylabel('Vc(t)');
+grid on;
+legend('Vc(t)');
+
+            </code>
+        </pre>
+        <img src="{{ url_for('static', filename='img/crit.png') }}" alt="Tab crit">
+
+        <p>3. Por tercer ejemplo se utiliza el circuito, cuya respuesta natural es Subamortiguado</p>
+<pre>
+    <code> 
+        R = 2;
+L = 0.25;
+C = 1/25;
+syms Vc(t)
+Dv = diff(Vc, t);
+D2v = diff(Vc, t, 2);
+eqn = L*D2v + R*Dv + (1/C)*Vc == 0;
+% Condiciones iniciales
+Vc0 = 1;
+I0 = 1;
+dVc0 = I0 / C; % Derivada inicial de Vc
+conds = [Vc(0) == Vc0, Dv(0) == dVc0];
+Vcs = dsolve(eqn, conds);% Resolver la ecuación diferencial
+disp('Solución simbólica de Vc(t):');
+disp(Vcs);
+% Definir el rango de tiempo para la evaluación
+t_vals = linspace(0, 5, 500); % Intervalo de tiempo y puntos de evaluación
+Vc_sol = matlabFunction(Vcs);
+R1 = Vc_sol(t_vals);
+disp('Resultados numéricos de Vc(t):');
+resultados = table(t_vals', R1', 'VariableNames', {'Tiempo', 'Vc'});
+disp(resultados);
+figure;
+plot(t_vals, R1, 'LineWidth', 2);
+title('Solución de la Ecuación Diferencial del Circuito RLC en Serie (Subamortiguado)');
+xlabel('Tiempo (s)');
+ylabel('Vc(t)');
+grid on;
+legend('Vc(t)');
+
+    </code>
+</pre>
+<img src="{{ url_for('static', filename='img/sobre.png') }}" alt="Tab 8">
+
+        <h2> Análisis usando Transformada de Laplace</h2>
+        <p>La transformada de Laplace es una herramienta poderosa para resolver ecuaciones diferenciales en el análisis de circuitos.</p>
+        <img src="{{ url_for('static', filename='img/Imagen1.jpg') }}" alt="Tab 1">
+
+        <h3> Definición de la Transformada de Laplace</h3>
+        <p>
+            \[
+            L[f(t)] = F(s) = \int_0^\infty f(t) e^{-st} dt
+            \]
+        </p>
+        <p>Donde:</p>
+        <p>
+            \[
+            s = \sigma + j\omega
+            \]
+        </p>
+        <img src="{{ url_for('static', filename='img/8.11.png') }}" alt="Tab 8.11">
+
+        <pre>
+            <code>
+                yms t s Vc(t) Vc_s
+% Valores de los componentes del circuito
+R = 1000;
+L = 1e-3; 
+C = 6.25e-9;
+D2Vc = diff(Vc, t, 2);
+DVc = diff(Vc, t);
+equation = D2Vc + (R/L) * DVc + (1/(L*C)) * Vc == 0;
+% Condiciones iniciales
+V0 = 12; 
+DV0 = 0;
+% a Transformada de Laplace de la ecuación diferencial
+eq_laplace = laplace(equation, t, s);
+eq_laplace = subs(eq_laplace, [laplace(Vc, t, s), Vc(0), subs(diff(Vc, t), t, 0)], [Vc_s, V0, DV0]);
+disp('La ecuación en el dominio de Laplace es:');
+disp(eq_laplace);
+Vc_s_solution = solve(eq_laplace, Vc_s);
+Vc_s_solution = simplify(Vc_s_solution);
+disp('La solución en el dominio de Laplace es:');
+disp(Vc_s_solution);
+[num, den] = numden(Vc_s_solution);
+num = sym2poly(num);
+den = sym2poly(den);
+% d Desarrollo de fracciones parciales
+[Residues, Poles, K] = residue(num, den);
+disp('Residuos de la solución:');
+disp(Residues);
+disp('Polos de la solución:');
+disp(Poles);
+Vc_s_partial_fractions = 0;
+for k = 1:length(Residues)
+    Vc_s_partial_fractions = Vc_s_partial_fractions + Residues(k) / (s - Poles(k));
+end
+
+% Simplificar la solución en fracciones parciales
+Vc_s_partial_fractions = simplify(Vc_s_partial_fractions);
+disp('Solución en fracciones parciales:');
+disp(Vc_s_partial_fractions);
+
+%C Transformada inversa de Laplace
+Vc_solution = ilaplace(Vc_s_partial_fractions, s, t);
+Vc_solution = simplify(Vc_solution);
+disp('La solución de Vc(t) es:');
+disp(Vc_solution);
+check_solution_Vc0 = subs(Vc_solution, t, 0);
+check_solution_DVc0 = subs(diff(Vc_solution, t), t, 0);
+disp('Condición inicial Vc(0) = ');
+disp(check_solution_Vc0);
+disp('Condición inicial dVc(0)/dt = ');
+disp(check_solution_DVc0);
+
+            </code>
+        </pre>
+        
+        <h3> Fracciones Parciales y Polos</h3>
+        <ul>
+            <li><strong>Polos Simples:</strong></li>
+        </ul>
+        <p>
+            \[
+            F(s) = \frac{K_1}{s + p_1} + \frac{K_2}{s + p_2} + \dots + \frac{K_n}{s + p_n}
+            \]
+        </p>
+        <p>Aquí, cada \( p_i \) representa un polo simple de la función de transferencia \( F(s) \).</p>
+        
+        <ul>
+            <li><strong>Polos Complejos Conjugados:</strong></li>
+        </ul>
+        <p>
+            \[
+            F(s) = \frac{K_1}{s + (\alpha - j\beta)} + \frac{K_2}{s + (\alpha + j\beta)}
+            \]
+        </p>
+        
+        <ul>
+            <li><strong>Polos Repetidos:</strong></li>
+        </ul>
+        <p>
+            \[
+            F(s) = \frac{K_1}{s + p} + \frac{K_2}{(s + p)^2} + \dots + \frac{K_r}{(s + p)^r}
+            \]
+        </p>
+        <p>Donde \( p \) es un polo repetido \( r \) veces.</p>
+        
+        <h3> Polos y Ceros de una Función de Transferencia</h3>
+        <p>Para una función de transferencia general:</p>
+        <p>
+            \[
+            F(s) = \frac{b_n s^n + b_{n-1} s^{n-1} + \dots + b_1 s + b_0}{a_m s^m + a_{m-1} s^{m-1} + \dots + a_1 s + a_0}
+            \]
+        </p>
+        <ul>
+            <li><strong>Polos:</strong> Son las raíces del denominador \( Q(s) = 0 \), es decir, los valores de \( s \) que hacen que la función de transferencia sea infinita. Indican las frecuencias naturales del sistema que pueden generar respuestas inestables o resonantes.</li>
+        </ul>
+        <p>
+            \[
+            Q(s) = a_m s^m + a_{m-1} s^{m-1} + \dots + a_1 s + a_0 = 0
+            \]
+        </p>
+        
+        <ul>
+            <li><strong>Ceros:</strong> Son las raíces del numerador \( P(s) = 0 \), es decir, los valores de \( s \) que hacen que la salida del sistema sea cero. Indican las frecuencias en las que la salida del sistema se anula.</li>
+        </ul>
+        <p>
+            \[
+            P(s) = b_n s^n + b_{n-1} s^{n-1} + \dots + b_1 s + b_0 = 0
+            \]
+        </p>
+        
+        <h3> Diagrama de Polos y Ceros</h3>
+        <ul>
+            <li><strong>Polos:</strong> Se representan en el plano \( s \) como 'X' en las ubicaciones \( s = p_i \). Estos son los puntos donde la función de transferencia se vuelve infinita.</li>
+            <li><strong>Ceros:</strong> Se representan en el plano \( s \) como 'O' en las ubicaciones \( s = z_i \). Estos son los puntos donde la función de transferencia se vuelve cero.</li>
+        </ul>
+        
+        <h3> Diagrama de Bode</h3>
+        <p>El diagrama de Bode representa la respuesta en frecuencia de un sistema. Muestra cómo varían la magnitud y la fase de la función de transferencia \( F(s) \) con respecto a la frecuencia angular \( \omega \). Es particularmente útil para determinar la estabilidad y el margen de ganancia de un sistema de control.</p>
+        <img src="{{ url_for('static', filename='img/7.3.png') }}" alt="Tab 7.3">
+
+        <pre>
+    <code>
+        title('FUNCIONES DE RED')
+            %%H_I=(4/7)((S+3)/((S+3.85))
+            %%H_((S))=((S+3))/((S+9))
+num=[0 1 3];
+den=[1 1 9];
+H=tf(num,den)
+[z,p,k]=tf2zp(num,den)
+pzmap(H)
+bode(H)
+
+    </code>
+</pre>
+<img src="{{ url_for('static', filename='img/red.png') }}" alt="Tab red">
+
+<p>Calculo de las funciones de Red</p>
+<pre>
+    <code>
+        syms S
+MM=[8+2*S -2*S-6; -2*S-6 2*S+18]
+ZL=6
+delta=det(MM)
+Z11=-(delta/-MM(2,2))
+Y11=MM(2,2)/delta
+Y21=-(MM(1,2)/delta)
+Tv=(ZL*Y21)
+Z21=Tv/Y11
+TI=-(MM(1,2)/MM(2,2))
+
+    </code>
+</pre>
+<img src="{{ url_for('static', filename='img/bode.png') }}" alt="Tab Bode">
+
+    </main>
+
+    <!-- Calculadora específica para Unidad 2 (a insertar) -->
+   
+</body>
+</html>

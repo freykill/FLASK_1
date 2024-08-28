@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad 1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .informe-cuerpo ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+    </style>
+</head>
+<body class="unidad">
+    <nav>
+        <a href="{{ url_for('index') }}">Inicio</a>
+        <a href="{{ url_for('unidad1') }}">Unidad 1</a>
+        <a href="{{ url_for('unidad2') }}">Unidad 2</a>
+        <a href="{{ url_for('unidad3') }}">Unidad 3</a>
+    </nav>
+    <div class="text-content">
+        <h1>Circuitos Trifásicos</h1>
+        <!-- Contenido de la Unidad 1 -->
+        <div class="informe"> 
+            <div>
+                <h2>Conexión Y-Y</h2>
+                <div class="informe-cuerpo">
+                    <p>La configuración estrella-estrella (Y-Y) es una de las formas más utilizadas en sistemas eléctricos trifásicos. En este tipo de conexión, tanto la fuente de energía (que puede ser un generador o transformador) como la carga están configuradas en estrella (Y). A continuación, se detalla esta configuración.</p>
+                    <!-- imagen1 -->
+                    <div style="text-align: center;">
+                        <img src="{{ url_for('static', filename='img/y-y.png') }}" alt="Conexión Y-Y" style="width: 30%; height: auto;">
+                    </div>
+                    <h3>Tensiones de Fase en un Sistema Trifásico</h3>
+                    <p>Considerando una secuencia positiva, las tensiones de fase (también llamadas tensiones línea-neutro) en un sistema trifásico son las tensiones que existen entre cada línea y el neutro. Estas tensiones están desfasadas 120 grados entre sí y se pueden describir como:</p>
+                    <ul>
+                        <p>\[ V_{an} = V_f \angle 0^\circ \]</p>
+                        <p>\[ V_{bn} = V_f \angle -120^\circ \]</p>
+                        <p>\[ V_{cn} = V_f \angle 120^\circ \]</p>
+                    </ul>
+                    <h3>Tensiones de Línea-Línea</h3>
+                    <p>
+                        Las tensiones línea-línea, o simplemente tensiones de línea, \(V_{ab}\), \(V_{bc}\) y \(V_{ca}\) se relacionan con las tensiones de fase:
+
+                    </p>
+                    <ul>
+                        <li>\[ V_{ab} = V_{an} - V_{bn} = V_p \angle 0^\circ - V_p \angle -120^\circ = V_p \left(1 + \frac{1}{2} + \frac{j\sqrt{3}}{2}\right) = \sqrt{3} V_p \angle 30^\circ \]</li>
+                        <li>\[ V_{bc} = V_{bn} - V_{cn} = \sqrt{3} V_p \angle -90^\circ \]</li>
+                        <li>\[ V_{ca} = V_{cn} - V_{an} = \sqrt{3} V_p \angle -150^\circ \]</li>
+                    </ul>
+                    <p> Por lo tanto, la magnitud de las tensiones de línea \(V_L\) es \( \sqrt{3} \) veces la magnitud de las tensiones de fase \(V_p\):</p>
+                    <p>\[ V_L = \sqrt{3} V_p \]</p>
+                    <p>Además, las tensiones de línea se adelantan en 30° respecto a las tensiones de fase correspondientes. La figura representa esta relación, mostrando cómo calcular  \(V_{ab}\) a partir de las tensiones de fase. La figura ilustra cómo las tensiones de línea están desfasadas entre sí en 120°, lo que resulta en la suma de cero tanto para las tensiones de línea como para las tensiones de fase. </p>
+                    <h3>Corrientes de Línea</h3>
+                    <p>Al aplicar la Ley de Kirchhoff de Tensión (LTK) a cada fase, como se muestra en la figura, se obtienen las corrientes de línea de la siguiente manera:</p>
+                    <ul>
+                        <li>\[ I_a = \frac{V_{an}}{Z_Y} \]</li>
+                    </ul>
+
+
+
+                </div>
+            </div>
+        </div>
+        
+        <!-- Incluir calculadora Y-Y -->
+        <iframe src="{{ url_for('static', filename='calculadora_y_y.html') }}" width="100%" height="400px"></iframe>
+<div class="text-content"> 
+    <div class="infome">
+        <h2>Conexión delta-delta (Δ-Δ)</h2>
+        <div class="informe-cuerpo">
+            <p>En un sistema trifásico balanceado con configuración delta-delta (Δ-Δ), tanto la fuente de energía como la carga están conectadas en delta (Δ).</p>
+<!-- imagen2 -->
+<div style="text-align: center;">
+    <img src="{{ url_for('static', filename='img/delta-delta.png') }}" alt="Conexión Delta-Delta" style="width: 50%; height: auto;">
+</div>
+<h3>Tensiones de Fase en un Sistema Delta-Delta</h3>
+<p>Considerando una secuencia positiva, las tensiones de fase de una fuente conectada en delta son:</p>
+                    <ul>
+                        <p>\[ V_{ab} = V_p \angle 0^\circ \]</p>
+                        <p>\[ V_{bc} = V_p \angle -120^\circ \]</p>
+                        <p>\[ V_{ca} = V_p \angle 120^\circ \]</p>
+                    </ul>
+<p>En esta configuración, las tensiones de línea son idénticas a las tensiones de fase. Si no se consideran las impedancias de línea, las tensiones de fase de la fuente conectada en delta son iguales a las tensiones aplicadas a las impedancias de carga:</p>
+<p>\[ V_{ab} = V_{AB} \]</p>
+    <p>\[ V_{bc} = V_{BC} \]</p>
+    <p>\[ V_{ca} = V_{CA} \]</p>
+    <h3>Corrientes de Fase</h3>
+    <p>Las corrientes de fase se calculan como sigue:</p>
+    <p>\[ I_{AB} = \frac{V_{AB}}{Z_{\Delta}} = \frac{V_{ab}}{Z_{\Delta}} \]</p>
+    <p>\[ I_{BC} = \frac{V_{BC}}{Z_{\Delta}} = \frac{V_{bc}}{Z_{\Delta}} \]</p>
+    <p>\[ I_{CA} = \frac{V_{CA}}{Z_{\Delta}} = \frac{V_{ca}}{Z_{\Delta}} \]</p>
+<h3>Corrientes de Línea</h3>
+<p>Las corrientes de línea se determinan aplicando la Ley de Kirchhoff de Corriente (LCK) en los nodos A, B y C:</p>
+<p>\[ I_a = I_{AB} - I_{CA} \]</p>
+    <p>\[ I_b = I_{BC} - I_{AB} \]</p>
+    <p>\[ I_c = I_{CA} - I_{BC} \]</p>
+    <h3>Relación entre Corrientes en un Sistema Delta-Delta</h3>
+    <p>En un sistema delta-delta, las corrientes de línea están desfasadas \( 30^\circ \) con respecto a las corrientes de fase.</p>
+    <p>La magnitud de la corriente de línea \( I_L \) es \( \sqrt{3} \) veces la magnitud de la corriente de fase \( I_p \):</p>
+    <p>\[ I_L = \sqrt{3} I_p \]</p>
+
+
+        </div>
+
+    </div>
+</div>
+    
+        <!-- Incluir calculadora Delta-Delta -->
+        <iframe src="{{ url_for('static', filename='calculadora_delta_delta.html') }}" width="100%" height="400px"></iframe>
+<div>
+
+    <div class="text-content">
+        <div class="informe">
+            <h2>Conexión Delta-Estrella (Δ-Y)</h2>
+        </div>
+        <div class="informe-cuerpo">
+            <p>La configuración delta-estrella (Δ-Y) en un sistema balanceado consiste en una fuente conectada en delta (Δ) que alimenta a una carga balanceada conectada en estrella (Y). Esta configuración es frecuente en la transmisión y distribución de energía, ya que permite la adaptación de diferentes niveles de voltaje y una distribución equitativa de la potencia.</p>
+            
+            <!-- Imagen con título -->
+            <div style="text-align: center;">
+                <img src="{{ url_for('static', filename='img/delta-y.png') }}" alt="Conexión Delta-Y" style="width: 40%; height: auto;">
+                <h3>Tensiones de Fase en un Sistema Delta-Estrella</h3>
+            </div>
+    
+            <!-- Explicación sobre tensiones de fase -->
+            <p>En un sistema con secuencia abc, las tensiones de fase en una fuente conectada en delta son:</p>
+            <ul>
+                <li><p>\[ V_{ab} = V_p \angle 0^\circ \]</p></li>
+                <li><p>\[ V_{bc} = V_p \angle -120^\circ \]</p></li>
+                <li><p>\[ V_{ca} = V_p \angle 120^\circ \]</p></li>
+            </ul>
+            <p>Estas tensiones corresponden tanto a las tensiones de línea como a las tensiones de fase del sistema.</p>
+    
+            <!-- Corrientes de Línea -->
+            <h3>Corrientes de Línea</h3>
+            <p>Las corrientes de línea en una conexión Δ-Y se pueden determinar utilizando la Ley de Kirchhoff de Tensión (LTK) en un lazo que incluye la fuente y la carga. Considerando el lazo aANBba (como se vería en una figura típica de un sistema Δ-Y), se aplica la siguiente relación:</p>
+            <p>\[ -V_{ab} + Z_Y \cdot I_a - Z_Y \cdot I_b = 0 \]</p>
+            <p>Despejando, obtenemos:</p>
+            <ul>
+                <li><p>\[ I_a = \frac{V_{ab} - V_{bc}}{Z_Y} \]</p></li>
+                <li><p>\[ I_b = \frac{V_{bc} - V_{ca}}{Z_Y} \]</p></li>
+                <li><p>\[ I_c = \frac{V_{ca} - V_{ab}}{Z_Y} \]</p></li>
+            </ul>
+            <p>Dado que las corrientes de fase en la carga están desfasadas por 120 grados, las corrientes de línea se retrasan respecto a las corrientes de fase correspondientes en 30 grados.</p>
+    
+            <!-- Transformación de Impedancia -->
+            <h3>Transformación</h3>
+            <p>Cuando se transforma una conexión delta (Δ) en su equivalente estrella (Y'), cada impedancia en la configuración estrella se relaciona con las impedancias de la configuración delta de la siguiente manera:</p>
+            <ul><li><p>\[ Z'_Y = \frac{Z_{\Delta}}{3} \]</p></li></ul>
+            <h3>Explicación de la Transformación</h3>
+            <p>La transformación de un circuito en delta (\(\Delta\)) a un circuito en estrella (\(Y'\)) implica reemplazar las tres impedancias del delta (\(Z_{\Delta}\)) con tres impedancias en estrella (\(Z'_Y\)) que son equivalentes en cuanto al efecto que producen en el circuito.</p>
+            <h4>Impedancia en Delta (\(Z_{\Delta}\)):</h4>
+    <p>Cada impedancia en la configuración delta está conectada entre dos líneas del sistema trifásico.</p>
+
+    <h4>Impedancia en Estrella (\(Z'_Y\)):</h4>
+    <p>En la configuración en estrella, cada impedancia está conectada entre una línea y el neutro.</p>
+
+
+
+        </div>
+    </div>
+        
+        <!-- Incluir calculadora Delta-Y -->
+        <iframe src="{{ url_for('static', filename='calculadora_delta_y.html') }}" width="100%" height="400px"></iframe>
+    </div>
+</body>
+</html>

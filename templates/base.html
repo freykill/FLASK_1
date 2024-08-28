@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mi Página Web{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="content">
+        <div class="menu container">
+            <a href="{{ url_for('example') }}" class="logo">Inicio</a>
+            <input type="checkbox" id="menu" />
+            <label for="menu" class="menu-icono">
+                <div></div>
+                <div></div>
+                <div></div>
+            </label>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="{{ url_for('unidad1') }}">Unidad 1</a></li>
+                    <li><a href="{{ url_for('unidad2') }}">Unidad 2</a></li>
+                    <li><a href="{{ url_for('unidad3') }}">Unidad 3</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

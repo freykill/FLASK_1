@@ -1,0 +1,45 @@
+/* Estilo para el fondo en la página de inicio */
+body.inicio {
+    margin: 0;
+    padding: 0;
+    background-image: url('../static/img/FONDO.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Altura completa de la ventana */
+    width: 100vw;  /* Ancho completo de la ventana */
+    overflow: hidden; /* Ocultar cualquier desbordamiento */
+}
+
+/* Mejorar la presentación del menú */
+nav {
+    background-color: #333;
+    overflow: hidden;
+}
+
+nav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    background-color: #575757;
+    color: white;
+}
+
+/* Estilo para las páginas de unidades */
+body.unidad {
+    background-color: #f4f4f4; /* Color de fondo claro */
+    color: #333;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}

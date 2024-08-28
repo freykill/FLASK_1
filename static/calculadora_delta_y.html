@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Conexión Delta-Y</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+        input {
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Calculadora Conexión Delta-Y</h1>
+    
+    <label for="van">VAN (ej: -391.91i):</label>
+    <input type="text" id="van"><br>
+
+    <label for="vbn">VBN (ej: 339.4+195.96i):</label>
+    <input type="text" id="vbn"><br>
+
+    <label for="vcn">VCN (ej: -339.4+195.96i):</label>
+    <input type="text" id="vcn"><br>
+
+    <label for="zy">ZΔ (ej: 10+5i):</label>
+    <input type="text" id="zy"><br>
+
+    <label for="zth">Z Thevenin (ej: 10+2i):</label>
+    <input type="text" id="zth"><br>
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div class="result" id="result"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.1/lib/browser/math.min.js"></script>
+    <script>
+        function calcular() {
+            const VAN = math.complex(document.getElementById('van').value);
+            const VBN = math.complex(document.getElementById('vbn').value);
+            const VCN = math.complex(document.getElementById('vcn').value);
+            const Zth = math.complex(document.getElementById('zth').value);
+
+            const IA = math.divide(VAN, Zth);
+            const IB = math.divide(VBN, Zth);
+            const IC = math.divide(VCN, Zth);
+
+            const IA_modulo = math.abs(IA);
+            const IA_angulo = math.arg(IA) * (180 / Math.PI);
+
+            const IB_modulo = math.abs(IB);
+            const IB_angulo = math.arg(IB) * (180 / Math.PI);
+
+            const IC_modulo = math.abs(IC);
+            const IC_angulo = math.arg(IC) * (180 / Math.PI);
+
+            document.getElementById('result').innerText = `
+            Corrientes en la línea (en forma polar):
+            IA: Magnitud = ${IA_modulo.toFixed(2)}, Ángulo = ${IA_angulo.toFixed(2)} grados
+            IB: Magnitud = ${IB_modulo.toFixed(2)}, Ángulo = ${IB_angulo.toFixed(2)} grados
+            IC: Magnitud = ${IC_modulo.toFixed(2)}, Ángulo = ${IC_angulo.toFixed(2)} grados
+            `;
+        }
+    </script>
+
+</body>
+</html>

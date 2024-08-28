@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .content {
+            background-color: rgba(255, 255, 255, 0.5); /* Fondo blanco más transparente */
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 800px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            color: #0f0101; /* Texto más oscuro */
+        }
+
+        h3 {
+            margin-top: 15px;
+            color: #0f0e0e; /* Texto más oscuro */
+            font-size: 1.1em;
+        }
+
+        p {
+            color: #1a1717; /* Texto más oscuro */
+            font-size: 1em;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body class="inicio">
+    <nav>
+        <a href="{{ url_for('index') }}">Inicio</a>
+        <a href="{{ url_for('unidad1') }}">Unidad 1</a>
+        <a href="{{ url_for('unidad2') }}">Unidad 2</a>
+        <a href="{{ url_for('unidad3') }}">Unidad 3</a>
+    </nav>
+    <div class="container">
+        <div class="content">
+            <h1>Bienvenidos a Nuestro Curso de Análisis de Circuitos Electrónicos</h1>
+            <p>Estamos encantados de tenerte aquí mientras nos embarcamos en este viaje para explorar y comprender algunos de los aspectos más fascinantes y fundamentales de la ingeniería eléctrica y electrónica. Este curso está diseñado para ofrecerte una base sólida en el análisis y diseño de circuitos, con un enfoque particular en sistemas trifásicos, circuitos de primer y segundo orden, y filtros eléctricos.</p>
+            <h3>Conexiones Trifásicas</h3>
+            <p>En esta unidad, exploraremos las configuraciones más comunes de sistemas eléctricos trifásicos, como las conexiones Y-Y, Delta-Delta y Delta-Y. A través de ejemplos prácticos y ejercicios, entenderemos cómo se distribuyen las tensiones y corrientes en cada configuración, y cómo realizar los cálculos necesarios para diseñar y analizar estos sistemas. Esta unidad es fundamental para comprender la operación de sistemas de potencia en redes eléctricas.</p>
+            <h3>Circuitos de Primer y Segundo Orden</h3>
+            <p>Esta unidad está dedicada al análisis de circuitos RC y RL, tanto en configuraciones de primer como de segundo orden. Aprenderemos cómo estos circuitos responden a diferentes señales de entrada, y cómo aplicar las ecuaciones diferenciales para resolver circuitos en el dominio del tiempo. Los conocimientos adquiridos aquí son esenciales para el diseño y análisis de circuitos en una amplia variedad de aplicaciones electrónicas.</p>
+            <h3>Filtros y Circuitos Resonantes</h3>
+            <p>En la última unidad, nos enfocaremos en el estudio de circuitos resonantes y filtros eléctricos. Analizaremos cómo los circuitos resonantes en serie y paralelo pueden ser utilizados para seleccionar o rechazar ciertas frecuencias en un sistema eléctrico. También estudiaremos diferentes tipos de filtros, como los pasa-altos y pasa-banda, y su papel en la mejora de la calidad de señal en aplicaciones de telecomunicaciones y procesamiento de señales.</p>
+        </div>
+    </div>
+</body>
+</html>

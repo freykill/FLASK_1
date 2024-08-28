@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Conexión Delta-Delta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+        input {
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Calculadora Conexión Delta-Delta</h1>
+    
+    <label for="vab">VAB (ej: 400+0i):</label>
+    <input type="text" id="vab"><br>
+
+    <label for="vbc">VBC (ej: 400-240i):</label>
+    <input type="text" id="vbc"><br>
+
+    <label for="vca">VCA (ej: 400+240i):</label>
+    <input type="text" id="vca"><br>
+
+    <label for="z">ZΔ (ej: 10+5i):</label>
+    <input type="text" id="z"><br>
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div class="result" id="result"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@10.0.1/lib/browser/math.min.js"></script>
+    <script>
+        function calcular() {
+            const VAB = math.complex(document.getElementById('vab').value);
+            const VBC = math.complex(document.getElementById('vbc').value);
+            const VCA = math.complex(document.getElementById('vca').value);
+            const ZΔ = math.complex(document.getElementById('z').value);
+
+            const IA = math.divide(VAB, ZΔ);
+            const IB = math.divide(VBC, ZΔ);
+            const IC = math.divide(VCA, ZΔ);
+
+            const IA_modulo = math.abs(IA);
+            const IA_angulo = math.arg(IA) * (180 / Math.PI);
+
+            const IB_modulo = math.abs(IB);
+            const IB_angulo = math.arg(IB) * (180 / Math.PI);
+
+            const IC_modulo = math.abs(IC);
+            const IC_angulo = math.arg(IC) * (180 / Math.PI);
+
+            document.getElementById('result').innerText = `
+            Corrientes en la línea (en forma polar):
+            IA: Magnitud = ${IA_modulo.toFixed(2)}, Ángulo = ${IA_angulo.toFixed(2)} grados
+            IB: Magnitud = ${IB_modulo.toFixed(2)}, Ángulo = ${IB_angulo.toFixed(2)} grados
+            IC: Magnitud = ${IC_modulo.toFixed(2)}, Ángulo = ${IC_angulo.toFixed(2)} grados
+            `;
+        }
+    </script>
+
+</body>
+</html>

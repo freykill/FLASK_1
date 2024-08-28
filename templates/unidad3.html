@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad 1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .informe-cuerpo ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+    </style>
+</head>
+<body class="unidad">
+    <nav>
+        <a href="{{ url_for('index') }}">Inicio</a>
+        <a href="{{ url_for('unidad1') }}">Unidad 1</a>
+        <a href="{{ url_for('unidad2') }}">Unidad 2</a>
+        <a href="{{ url_for('unidad3') }}">Unidad 3</a>
+    </nav>
+     <!-- Contenido principal -->
+     <h2> Circuitos Resonantes</h2>
+<p>
+    Los circuitos resonantes son fundamentales en la electrónica, utilizados en una variedad de aplicaciones que incluyen sintonización de radios, filtros de frecuencia y amplificación de señales. Los dos tipos más comunes son los circuitos resonantes en serie y en paralelo.
+</p>
+
+<h3> Circuito Resonante en Serie</h3>
+<p>
+    Un circuito resonante en serie consta de una resistencia (<i>R</i>), una inductancia (<i>L</i>), y una capacitancia (<i>C</i>) conectadas en serie. La resonancia ocurre cuando la reactancia inductiva es igual a la reactancia capacitiva, es decir, cuando <i>X<sub>L</sub> = X<sub>C</sub></i>.
+</p>
+
+<h4> Fórmulas Clave</h4>
+<ul>
+    <li><strong>Frecuencia de resonancia (\(f_0\)):</strong></li>
+</ul>
+<p>
+    \[
+    f_0 = \frac{1}{2\pi\sqrt{LC}}
+    \]
+</p>
+<ul>
+    <li><strong>Impedancia en resonancia (\(Z\)):</strong></li>
+</ul>
+<p>
+    \[
+    Z = R
+    \]
+</p>
+<ul>
+    <li><strong>Factor de calidad (\(Q\)):</strong></li>
+</ul>
+<p>
+    \[
+    Q = \frac{\omega_0 L}{R} = \frac{1}{\omega_0 RC}
+    \]
+</p>
+
+<h3> Circuito Resonante en Paralelo</h3>
+<p>
+    Un circuito resonante en paralelo consta de una inductancia (<i>L</i>) y una capacitancia (<i>C</i>) conectadas en paralelo. La resonancia se logra cuando la corriente en la rama inductiva es igual y opuesta a la corriente en la rama capacitiva.
+</p>
+
+<h4> Fórmulas Clave</h4>
+<ul>
+    <li><strong>Frecuencia de resonancia (\(f_0\)):</strong></li>
+</ul>
+<p>
+    \[
+    f_0 = \frac{1}{2\pi\sqrt{LC}}
+    \]
+</p>
+<ul>
+    <li><strong>Impedancia total en resonancia (\(Z_{res}\)):</strong></li>
+</ul>
+<p>
+    \[
+    Z_{res} = \frac{L}{C} \cdot \frac{1}{R}
+    \]
+</p>
+<ul>
+    <li><strong>Factor de calidad (\(Q\)):</strong></li>
+</ul>
+<p>
+    \[
+    Q = \frac{R}{\omega_0 L} = \omega_0 RC
+    \]
+</p>
+
+<h2> Aplicaciones de los Circuitos Resonantes</h2>
+<p>
+    Los circuitos resonantes son utilizados en una variedad de aplicaciones prácticas:
+</p>
+<ul>
+    <li><strong>Filtros de frecuencia:</strong> Seleccionan señales de una banda de frecuencia específica y rechazan las señales fuera de esa banda.</li>
+    <li><strong>Sintonización de radios:</strong> Permiten a las radios sintonizar una frecuencia específica al ajustar la resonancia del circuito a la frecuencia de la señal deseada.</li>
+    <li><strong>Amplificación de señales:</strong> Aumentan la amplitud de señales débiles en comunicaciones y sistemas de procesamiento de señales.</li>
+</ul>
+
+<h2> Análisis de Circuito Resonante de Dos Ramas</h2>
+<p>
+    En un circuito resonante de dos ramas, cada rama tiene su propia impedancia y la resonancia ocurre cuando la impedancia total del circuito es puramente resistiva.
+</p>
+
+<h4> Primera Rama (\(Z_1\))</h4>
+<p>
+    Incluye una resistencia (\(R_C\)) y una reactancia capacitiva (\(-jX_C\)):
+</p>
+<p>
+    \[
+    Z_1 = R_C - jX_C
+    \]
+</p>
+
+<h4> Segunda Rama (\(Z_2\))</h4>
+<p>
+    Incluye una resistencia (\(R_L\)) y una reactancia inductiva (\(+jX_L\)):
+</p>
+<p>
+    \[
+    Z_2 = R_L + jX_L
+    \]
+</p>
+
+<h4> Condición de Resonancia</h4>
+<p>
+    La condición de resonancia se cumple cuando la parte imaginaria de la impedancia total es cero:
+</p>
+<p>
+    \[
+    \frac{X_C}{R_C^2 + X_C^2} = \frac{X_L}{R_L^2 + X_L^2}
+    \]
+</p>
+
+<h4> Frecuencia de Resonancia Refinada (\(\omega_0\))</h4>
+<p>
+    La frecuencia de resonancia refinada se puede expresar como:
+</p>
+<p>
+    \[
+    \omega_0 = \frac{1}{\sqrt{LC}} \cdot \sqrt{\frac{R_L^2 - \frac{L}{C}}{R_C^2 - \frac{L}{C}}}
+    \]
+</p>
+<pre>
+    <code>
+        % Parte 1: Lugar Geométrico de la Admitancia de Varias Ramas en Paralelo
+
+% Parámetros de las ramas
+Z1_real = 5;               % Parte real de Z1 (ohmios)
+Z1_imag = 0.6 * 5000;      % Parte imaginaria de Z1 (ohmios) a 5000 rad/s
+
+Z2_real = 2;               % Parte real de Z2 (ohmios)
+omega_resonancia = 5000;   % Frecuencia de resonancia en rad/s
+
+Z3_real = 3;               % Parte real de Z3 (ohmios)
+Z3_imag = 0.4 * 5000;      % Parte imaginaria de Z3 (ohmios)
+
+% Crear un vector de valores para C (capacitancia)
+C = linspace(1e-9, 1e-6, 1000);
+
+% Impedancia Z1
+Z1 = Z1_real + 1i * Z1_imag;
+
+% Admitancia Y1
+Y1 = 1 ./ Z1;
+
+% Impedancia Z2
+Z2 = Z2_real + 1./(1i * omega_resonancia * C);
+
+% Admitancia Y2
+Y2 = 1 ./ Z2;
+
+% Impedancia Z3
+Z3 = Z3_real + 1i * Z3_imag;
+
+% Admitancia Y3
+Y3 = 1 ./ Z3;
+
+% Admitancia total (en paralelo)
+Y_total = Y1 + Y2 + Y3;
+
+% Graficar el lugar geométrico de la admitancia total de las ramas en paralelo
+figure;
+plot(real(Y_total), imag(Y_total));
+xlabel('Parte Real de la Admitancia');
+ylabel('Parte Imaginaria de la Admitancia');
+title('Lugar Geométrico de la Admitancia de Varias Ramas en Paralelo');
+grid on;
+
+    </code>
+</pre>
+
+
+<h3>Lugar Geométrico de la Admitancia</h3>
+<p>
+    El lugar geométrico de la admitancia es una representación gráfica de cómo cambia la admitancia (recíproco de la impedancia) en función de la frecuencia. Esta representación es útil para analizar la respuesta en frecuencia de circuitos y sistemas de control.
+</p>
+<img src="{{ url_for('static', filename='img/adm.png') }}" alt="admitancia">
+
+<h2>Tipos de Filtros</h2>
+
+<h3> Filtros Pasa Bajo (LPF)</h3>
+<p>
+    Los filtros pasa bajo permiten que las señales de baja frecuencia pasen, mientras atenúan las señales de alta frecuencia. Existen dos tipos comunes: filtros RL (resistencia-inductor) y filtros RC (resistencia-condensador).
+</p>
+
+<h4>Filtro Pasa Bajo RL</h4>
+<p><strong>Función de Transferencia:</strong></p>
+<p>
+    \[
+    H_v = \frac{1}{1 + \left( \frac{\omega}{\omega_c} \right)^2} \angle -\tan^{-1}\left( \frac{\omega}{\omega_c} \right)
+    \]
+</p>
+<p><strong>Frecuencia de Corte (\(\omega_c\)):</strong></p>
+<p>
+    \[
+    \omega_c = \frac{R}{L}
+    \]
+</p>
+<p>
+    Aquí, \( R \) es la resistencia y \( L \) es la inductancia.
+</p>
+
+<h4>Filtro Pasa Bajo RC</h4>
+<p><strong>Función de Transferencia:</strong></p>
+<p>
+    \[
+    H_v = \frac{1}{1 + \left( \frac{\omega}{\omega_c} \right)^2} \angle -\tan^{-1}\left( \frac{\omega}{\omega_c} \right)
+    \]
+</p>
+<p><strong>Frecuencia de Corte (\(\omega_c\)):</strong></p>
+<p>
+    \[
+    \omega_c = \frac{1}{RC}
+    \]
+</p>
+<p>
+    En este caso, \( R \) es la resistencia y \( C \) es la capacitancia.
+</p>
+
+<h3> Filtros Pasa Alto</h3>
+<p>
+    Los filtros pasa alto permiten que las señales de alta frecuencia pasen, mientras atenúan las señales de baja frecuencia. Al igual que en los filtros pasa bajo, existen configuraciones RL y RC.
+</p>
+
+<h4>Filtro Pasa Alto RL</h4>
+<p><strong>Función de Transferencia:</strong></p>
+<p>
+    \[
+    H_v = \frac{1}{1 + \left( \frac{\omega_c}{\omega} \right)^2} \angle \tan^{-1}\left( \frac{\omega_c}{\omega} \right)
+    \]
+</p>
+<p><strong>Frecuencia de Corte (\(\omega_c\)):</strong></p>
+<p>
+    \[
+    \omega_c = \frac{R}{L}
+    \]
+</p>
+
+<h4>Filtro Pasa Alto RC</h4>
+<p><strong>Función de Transferencia:</strong></p>
+<p>
+    \[
+    H_v = \frac{1}{1 + \left( \frac{\omega_c}{\omega} \right)^2} \angle \tan^{-1}\left( \frac{\omega_c}{\omega} \right)
+    \]
+</p>
+<p><strong>Frecuencia de Corte (\(\omega_c\)):</strong></p>
+<p>
+    \[
+    \omega_c = \frac{1}{RC}
+    \]
+</p>
+
+<h3>Filtros Pasa Banda</h3>
+<p>
+    Los filtros pasa banda permiten que las señales dentro de un rango específico de frecuencias pasen, mientras atenúan las señales fuera de ese rango. Se pueden implementar en configuraciones serie o paralelo.
+</p>
+
+<h4>Filtro Pasa Banda en Serie</h4>
+<p><strong>Función de Transferencia:</strong></p>
+<p>
+    \[
+    H_v = \frac{1}{1 + \left( \frac{L}{R}\frac{\omega}{\omega - \omega_o} \right)^2} \angle -\tan^{-1}\left( \frac{L}{R}\frac{\omega}{\omega - \omega_o} \right)
+    \]
+</p>
+<p><strong>Frecuencia Central (\(\omega_0\)):</strong></p>
+<p>
+    \[
+    \omega_0 = \frac{1}{\sqrt{LC}}
+    \]
+</p>
+<p><strong>Frecuencias de Corte (\(\omega_{Cs}\) y \(\omega_{Ci}\)):</strong></p>
+<p>
+    \[
+    \omega_{Cs,i} = \frac{R}{2L} \pm \sqrt{\left( \frac{R}{2L} \right)^2 + \omega_0^2}
+    \]
+</p>
+<p><strong>Ancho de Banda (AB):</strong></p>
+<p>
+    \[
+    AB = \frac{R}{L}
+    \]
+</p>
+<p><strong>Factor de Calidad (Q):</strong></p>
+<p>
+    \[
+    Q = \frac{\omega_0 \cdot L}{R} \quad \text{o} \quad Q = \frac{1}{\omega_0 \cdot R \cdot C}
+    \]
+</p>
+
+<h4>Filtro Pasa Banda en Paralelo</h4>
+<p><strong>Función de Transferencia:</strong></p>
+<p>
+    \[
+    H_v = \frac{1}{1 + \left( R \cdot C \cdot \frac{\omega}{\omega - \omega_o} \right)^2} \angle -\tan^{-1}\left( R \cdot C \cdot \frac{\omega}{\omega - \omega_o} \right)
+    \]
+</p>
+<p><strong>Ancho de Banda (AB):</strong></p>
+<p>
+    \[
+    AB = \frac{1}{RC}
+    \]
+</p>
+<p><strong>Factor de Calidad (Q):</strong></p>
+<p>
+    \[
+    Q = \omega_0 \cdot R \cdot C
+    \]
+</p>
+<p>Si \( Q > 10 \):</p>
+<p>
+    \[
+    \omega_C = \omega_O \pm \frac{AB}{2}
+    \]
+</p>
+<p>Un circuito RLC paralelo tiene R=8k omh, L=40 mH y C=0.25 uF</p>
+<p>a: Encuente Q y AB</p>
+<p>B: Encuentre Hi, frecuenci C1 y C2</p>
+<img src="{{ url_for('static', filename='img/si3.png') }}" alt="ejemplo">
+<pre>
+    <code>
+        % Parte 1: Lugar Geométrico de la Admitancia de Varias Ramas en Paralelo
+
+% Parámetros de las ramas
+Z1_real = 5;               % Parte real de Z1 (ohmios)
+Z1_imag = 0.6 * 5000;      % Parte imaginaria de Z1 (ohmios) a 5000 rad/s
+
+Z2_real = 2;               % Parte real de Z2 (ohmios)
+omega_resonancia = 5000;   % Frecuencia de resonancia en rad/s
+
+Z3_real = 3;               % Parte real de Z3 (ohmios)
+Z3_imag = 0.4 * 5000;      % Parte imaginaria de Z3 (ohmios)
+
+% Crear un vector de valores para C (capacitancia)
+C = linspace(1e-9, 1e-6, 1000);
+
+% Impedancia Z1
+Z1 = Z1_real + 1i * Z1_imag;
+
+% Admitancia Y1
+Y1 = 1 ./ Z1;
+
+% Impedancia Z2
+Z2 = Z2_real + 1./(1i * omega_resonancia * C);
+
+% Admitancia Y2
+Y2 = 1 ./ Z2;
+
+% Impedancia Z3
+Z3 = Z3_real + 1i * Z3_imag;
+
+% Admitancia Y3
+Y3 = 1 ./ Z3;
+
+% Admitancia total (en paralelo)
+Y_total = Y1 + Y2 + Y3;
+
+% Graficar el lugar geométrico de la admitancia total de las ramas en paralelo
+figure;
+plot(real(Y_total), imag(Y_total));
+xlabel('Parte Real de la Admitancia');
+ylabel('Parte Imaginaria de la Admitancia');
+title('Lugar Geométrico de la Admitancia de Varias Ramas en Paralelo');
+grid on;
+
+% Parte 2: Filtro Pasa Banda
+
+% Parámetros del filtro pasa banda
+R = 10;                    % Resistencia en ohmios
+C_filtro = 1e-6;           % Capacitancia en faradios
+L = 1e-3;                  % Inductancia en henrios
+
+% Frecuencia angular de resonancia
+omega_0 = 1 / sqrt(L * C_filtro);
+
+% Frecuencia de corte usando la fórmula dada
+omega_c1 = (R / (2 * L)) - sqrt((R / (2 * L))^2 + omega_0^2);
+omega_c2 = (R / (2 * L)) + sqrt((R / (2 * L))^2 + omega_0^2);
+
+% Ancho de banda
+Delta_omega = omega_c2 - omega_c1;
+
+% Factor de calidad
+Q = omega_0 / Delta_omega;
+
+% Convertir frecuencias angulares a frecuencias en Hz
+f_0 = omega_0 / (2 * pi);
+f_c1 = omega_c1 / (2 * pi);
+f_c2 = omega_c2 / (2 * pi);
+
+% Mostrar resultados en la consola
+disp('Resultados del Filtro Pasa Banda:');
+disp(['Frecuencia de Resonancia: ', num2str(f_0), ' Hz']);
+disp(['Frecuencia de Corte Inferior: ', num2str(f_c1), ' Hz']);
+disp(['Frecuencia de Corte Superior: ', num2str(f_c2), ' Hz']);
+disp(['Ancho de Banda: ', num2str(Delta_omega), ' rad/s']);
+disp(['Factor de Calidad: ', num2str(Q)]);
+
+% Graficar la respuesta en frecuencia del filtro pasa banda
+f = logspace(1, 6, 1000); % Rango de frecuencias en Hz
+omega = 2 * pi * f;       % Convertir a radianes por segundo
+
+% Transferencia del filtro pasa banda
+H = (1i * omega * L) ./ (R + 1i * omega * L + 1 ./ (1i * omega * C_filtro));
+
+figure;
+semilogx(f, abs(H));
+xlabel('Frecuencia (Hz)');
+ylabel('Ganancia');
+title('Respuesta en Frecuencia del Filtro Pasa Banda');
+grid on;
+
+    </code>
+</pre>
+<img src="{{ url_for('static', filename='img/pbanda.png') }}" alt="pasa banda">
+
+<h2>Cuadripolos o Redes Bipuerta</h2>
+<p>
+    Un cuadripolo o red bipuerta es una red eléctrica que tiene dos pares de terminales accesibles. Cada par de terminales se denomina "puerta" o "puerto". En un puerto, la corriente que entra por un terminal es igual a la que sale por el otro, lo cual es esencial para mantener la conservación de carga. El estudio de estos circuitos es crucial en el procesamiento de señales, donde un puerto generalmente representa la entrada y el otro la salida del sistema, con la única conexión a través del cuadripolo.
+</p>
+
+<h3>Parámetros de los Cuadripolos</h3>
+<p>
+    Para analizar un cuadripolo, se utilizan distintos tipos de parámetros, cada uno adaptado a diferentes aplicaciones y condiciones. A continuación, se explican los principales tipos de parámetros:
+</p>
+
+<img src="{{ url_for('static', filename='img/tabla2.png') }}" alt="Tab 2">
+
+<h4>Parámetros de Impedancia (Z)</h4>
+<p>
+    Estos parámetros se utilizan cuando las tensiones en los terminales se expresan en función de las corrientes que fluyen a través de ellos. Las ecuaciones que relacionan tensiones y corrientes en términos de impedancia son:
+</p>
+<img src="{{ url_for('static', filename='img/redl.png') }}" alt="red lineal">
+
+<p>
+    \[
+    V_1 = Z_{11}I_1 + Z_{12}I_2
+    \]
+    \[
+    V_2 = Z_{21}I_1 + Z_{22}I_2
+    \]
+</p>
+<p>
+    Donde:
+</p>
+<ul>
+    <li>\( Z_{11} \): Impedancia de entrada.</li>
+    <li>\( Z_{12} \): Impedancia de transferencia inversa.</li>
+    <li>\( Z_{21} \): Impedancia de transferencia directa.</li>
+    <li>\( Z_{22} \): Impedancia de salida.</li>
+</ul>
+
+<img src="{{ url_for('static', filename='img/z.png') }}" alt="Z">
+
+<p>
+    Estos parámetros son comunes en la síntesis de filtros y análisis de redes de acoplamiento de impedancia y distribución de potencia.
+</p>
+<img src="{{ url_for('static', filename='img/2red.png') }}" alt="redes">
+<p>Determínese los parámetros z para el circuito de la figura</p>
+<img src="{{ url_for('static', filename='img/pz1.png') }}" alt="parametro Z">
+<pre> 
+    <code>
+        % Definición de las variables dadas
+I1 = 1;  % Asumimos I1 = 1 para simplificar los cálculos
+I2 = 1;  % Asumimos I2 = 1 para simplificar los cálculos
+
+% Calcular z11
+V1_entrada = (20 + 40) * I1;  % V1 cuando se aplica la fuente de tensión al puerto de entrada
+z11 = V1_entrada / I1;
+
+% Calcular z21
+V2_entrada = 40 * I1;  % V2 cuando se aplica la fuente de tensión al puerto de entrada
+z21 = V2_entrada / I1;
+
+% Calcular z12
+V1_salida = 40 * I2;  % V1 cuando se aplica la fuente de tensión al puerto de salida
+z12 = V1_salida / I2;
+
+% Calcular z22
+V2_salida = (30 + 40) * I2;  % V2 cuando se aplica la fuente de tensión al puerto de salida
+z22 = V2_salida / I2;
+
+% Mostrar resultados
+fprintf('z11 = %.2f ohmios\n', z11);
+fprintf('z21 = %.2f ohmios\n', z21);
+fprintf('z12 = %.2f ohmios\n', z12);
+fprintf('z22 = %.2f ohmios\n', z22);
+
+    </code>
+</pre>
+<h2>Definición de Corrientes \( I_1 \) e \( I_2 \)</h2>
+<p>
+    Se asume \( I_1 = 1 \) y \( I_2 = 1 \) para simplificar los cálculos. Estos valores se pueden cambiar si se conocen los valores exactos de las corrientes.
+</p>
+
+<h3>Cálculo de \( z_{11} \)</h3>
+<p>
+    Utilizando la relación:
+    \[
+    V_1 = (20 + 40)I_1
+    \]
+</p>
+<p>
+    Se calcula:
+    \[
+    z_{11} = \frac{V_1}{I_1}
+    \]
+</p>
+
+<h3>Cálculo de \( z_{21} \)</h3>
+<p>
+    Utilizando la relación:
+    \[
+    V_2 = 40I_1
+    \]
+</p>
+<p>
+    Se calcula:
+    \[
+    z_{21} = \frac{V_2}{I_1}
+    \]
+</p>
+
+<h3>Cálculo de \( z_{12} \)</h3>
+<p>
+    Utilizando la relación:
+    \[
+    V_1 = 40I_2
+    \]
+</p>
+<p>
+    Se calcula:
+    \[
+    z_{12} = \frac{V_1}{I_2}
+    \]
+</p>
+
+<h3>Cálculo de \( z_{22} \)</h3>
+<p>
+    Utilizando la relación:
+    \[
+    V_2 = (30 + 40)I_2
+    \]
+</p>
+<p>
+    Se calcula:
+    \[
+    z_{22} = \frac{V_2}{I_2}
+    \]
+</p>
+
+<h3>Visualización de Resultados</h3>
+<p>
+    Utilizamos <code>fprintf</code> para mostrar los valores de los parámetros \( z_{ij} \).
+</p>
+
+<h4> Parámetros de Admitancia (Y)</h4>
+<p>
+    Los parámetros de admitancia se emplean cuando las corrientes de los terminales se expresan en términos de las tensiones aplicadas. Las ecuaciones para este tipo de parámetros son:
+</p>
+<p>
+    \[
+    I_1 = y_{11}V_1 + y_{12}V_2
+    \]
+    \[
+    I_2 = y_{21}V_1 + y_{22}V_2
+    \]
+</p>
+<img src="{{ url_for('static', filename='img/y.png') }}" alt="y">
+<p>
+    Donde:
+</p>
+<ul>
+    <li>\( y_{11} \): Admitancia de entrada.</li>
+    <li>\( y_{12} \): Admitancia de transferencia inversa.</li>
+    <li>\( y_{21} \): Admitancia de transferencia directa.</li>
+    <li>\( y_{22} \): Admitancia de salida.</li>
+</ul>
+<p>
+    Se utilizan cuando los parámetros de impedancia no pueden describir completamente la red, como en el caso de circuitos con fuentes de corriente ideales.
+</p>
+
+<h4> Parámetros Híbridos (H)</h4>
+<p>
+    Los parámetros híbridos combinan tanto tensiones como corrientes como variables dependientes. Este enfoque es útil para representar situaciones donde se tiene una combinación de condiciones de circuito abierto y cortocircuito. Las ecuaciones son:
+</p>
+<p>
+    \[
+    V_1 = H_{11}I_1 + H_{12}V_2
+    \]
+    \[
+    I_2 = H_{21}I_1 + H_{22}V_2
+    \]
+</p>
+<img src="{{ url_for('static', filename='img/h.png') }}" alt="H">
+<p>
+    Donde:
+</p>
+<ul>
+    <li>\( H_{11} \): Impedancia de entrada en cortocircuito.</li>
+    <li>\( H_{12} \): Ganancia inversa de tensión en circuito abierto.</li>
+    <li>\( H_{21} \): Ganancia directa de corriente en cortocircuito.</li>
+    <li>\( H_{22} \): Admitancia de salida en circuito abierto.</li>
+</ul>
+
+<h4> Parámetros de Transmisión (T y t)</h4>
+<p>
+    Estos parámetros describen cómo las señales se transmiten a través de la red de dos puertos y son particularmente útiles en la teoría de líneas de transmisión y en redes de amplificación:
+</p>
+
+<p><strong>Parámetros T (Transmisión):</strong></p>
+<p>
+    \[
+    V_1 = AV_2 - BI_2
+    \]
+    \[
+    I_1 = CV_2 - DI_2
+    \]
+</p>
+
+<p><strong>Parámetros t (Transmisión inversa):</strong></p>
+<p>
+    \[
+    V_2 = aV_1 - bI_1
+    \]
+    \[
+    I_2 = cV_1 - dI_1
+    \]
+</p>
+
+<h3>Procedimiento para Determinar Parámetros</h3>
+<p>
+    Para determinar estos parámetros, se pueden realizar diferentes configuraciones en los puertos del cuadripolo:
+</p>
+<ul>
+    <li><strong>Cortocircuito del puerto de entrada:</strong> Esto permite medir la respuesta del sistema cuando el puerto de salida se mantiene en condiciones normales, y el puerto de entrada se pone en cortocircuito. Esta configuración es útil para medir parámetros de impedancia y admitancia.</li>
+    <li><strong>Cortocircuito del puerto de salida:</strong> Aquí, se mide la respuesta del sistema cuando el puerto de entrada se mantiene en condiciones normales, y el puerto de salida se pone en cortocircuito. Este método es necesario para determinar los parámetros híbridos y otros parámetros específicos.</li>
+</ul>
+
+        
+    </main>
+
+    <!-- Calculadora específica para Unidad 2 (a insertar) -->
+   
+</body>
+</html>
